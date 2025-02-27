@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/Customer")
 @CrossOrigin
 @RequiredArgsConstructor
 
@@ -26,6 +26,7 @@ public class CustomerManagementController {
     public List<Customer> getAll() {
         return customerService.getAll();
     }
+
     @DeleteMapping("/delete/{id}")
     public void deleteCustomer(@PathVariable("id") Integer id){
         customerService.deleteCustomer(id);
