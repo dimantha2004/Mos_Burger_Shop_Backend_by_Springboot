@@ -7,14 +7,10 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @ToString
-
-public class Customer {
-
-    private Integer id;
-    private String name;
-    private String address;
-    private Integer contact;
+@Data
+public class Cart {
+    private Integer name;
+    private String price;
 
 }
