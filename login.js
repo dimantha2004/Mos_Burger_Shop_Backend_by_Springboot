@@ -1,26 +1,36 @@
-// Redirect to the signin form when the "Signin" button is clicked
 document.getElementById('signin-btn').addEventListener('click', function () {
-    // Hide login container and show signin container
+    
     document.querySelector('.login-container').style.display = 'none';
     document.querySelector('.signin-container').style.display = 'block';
 });
 
-// Login function
 document.getElementById('login-form').addEventListener('submit', function (event) {
     event.preventDefault();
     const username = document.getElementById('USERNAME').value;
     const password = document.getElementById('PASSWORD').value;
 
-    // Retrieve saved user data from localStorage
-    const savedUser = JSON.parse(localStorage.getItem('user'));
-
-    if (savedUser && username === savedUser.username && password === savedUser.password) {
-        alert('Login successful!');
+    fetch('http://localhost:8080/api/users/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.text(); 
+        } else {
+            throw new Error('Login failed');
+        }
+    })
+    .then(message => {
+        alert(message); 
         
-        // Hide the login container and show the app content
         document.querySelector('.login-container').style.display = 'none';
         document.getElementById('app-content').style.display = 'block';
-    } else {
+    })
+    .catch(error => {
         alert('Incorrect username or password. Please try again.');
-    }
+        console.error(error);
+    });
 });
