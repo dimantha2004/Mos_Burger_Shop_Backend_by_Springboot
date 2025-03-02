@@ -1,54 +1,57 @@
-let cart = [];
+document.addEventListener("DOMContentLoaded", function () {
+    let cart = JSON.parse(localStorage.getItem("cart")) || []; // Initialize cart from localStorage
 
-function addToCart(productName, productPrice) {
-    const existingItem = cart.find(item => item.name === productName);
-    if (existingItem) {
-        existingItem.quantity += 1;
-        existingItem.price += productPrice;
-    } else {
-        cart.push({ name: productName, price: productPrice, quantity: 1 });
+    // Function to add a product to the cart
+    window.addToCart = function (productName, productPrice, productQuantity) {
+        const existingItem = cart.find(item => item.name === productName);
+        if (existingItem) {
+            existingItem.quantity += productQuantity; // Update quantity if the product already exists
+            existingItem.price += productPrice * productQuantity; // Update total price
+        } else {
+            cart.push({ name: productName, price: productPrice * productQuantity, quantity: productQuantity }); // Add new product to cart
+        }
+        localStorage.setItem("cart", JSON.stringify(cart)); // Save cart to localStorage
+        updateCart(); // Update the cart UI
+        alert(`${productName} (Quantity: ${productQuantity}) has been added to the cart!`);
+    };
+
+    // Function to update the cart UI
+    function updateCart() {
+        const cartItemsList = document.getElementById("cart-items");
+        const totalElement = document.getElementById("total");
+        cartItemsList.innerHTML = ""; // Clear the cart items list
+        let total = 0;
+
+        cart.forEach((item, index) => {
+            const li = document.createElement("li");
+            li.textContent = `${item.name} - Rs: ${item.price.toFixed(2)} (Quantity: ${item.quantity})`;
+
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+            removeButton.classList.add("remove-btn");
+            removeButton.addEventListener("click", () => removeFromCart(index));
+            li.appendChild(removeButton);
+            cartItemsList.appendChild(li);
+            total += item.price;
+        });
+
+        totalElement.textContent = `Total: Rs: ${total.toFixed(2)}`;
     }
-    updateCart();
-}
 
-function updateCart() {
-    const cartItemsList = document.getElementById('cart-items');
-    const totalElement = document.getElementById('total');
-    cartItemsList.innerHTML = '';
-    let total = 0;
+    // Function to remove an item from the cart
+    function removeFromCart(index) {
+        cart.splice(index, 1); // Remove the item from the cart
+        localStorage.setItem("cart", JSON.stringify(cart)); // Update localStorage
+        updateCart(); // Update the cart UI
+    }
 
-    cart.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.textContent = `${item.name} - ${item.price.toFixed(2)}`;
-
-        const removeButton = document.createElement('button');
-        removeButton.textContent = 'Remove';
-        removeButton.classList.add('remove-btn');
-        removeButton.addEventListener('click', () => removeFromCart(index));
-        li.appendChild(removeButton);
-        cartItemsList.appendChild(li);
-        total += item.price;
+    // Clear cart
+    document.getElementById("clear-cart-btn")?.addEventListener("click", () => {
+        cart = []; // Clear the cart
+        localStorage.removeItem("cart"); // Remove cart from localStorage
+        updateCart(); // Update the cart UI
     });
 
-    totalElement.textContent = `Total: RS: ${total.toFixed(2)}`;
-}
-
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    updateCart();
-}
-
-// Add event listeners for "Order" buttons
-document.querySelectorAll('.order-btn').forEach(button => {
-    button.addEventListener('click', function () {
-        const productName = this.dataset.name;
-        const productPrice = parseFloat(this.dataset.price);
-        addToCart(productName, productPrice);
-    });
-});
-
-// Clear cart
-document.getElementById('clear-cart-btn').addEventListener('click', () => {
-    cart = [];
+    // Initialize the cart UI on page load
     updateCart();
 });
