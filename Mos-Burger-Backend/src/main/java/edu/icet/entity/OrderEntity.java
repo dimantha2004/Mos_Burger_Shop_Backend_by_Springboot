@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,5 +21,9 @@ public class OrderEntity {
     private Integer id;
     private Date orderDate;
     private Double totalPrice;
-    private Integer customerId;
+    private Integer phonenumber;
+
+    @ElementCollection
+    @CollectionTable(name = "order_items", joinColumns = @JoinColumn(name = "order_id"))
+    private List<OrderItemEntity> items; // Add this field
 }

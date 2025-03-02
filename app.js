@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM fully loaded and parsed");
 
-    const backendBaseUrl = "http://localhost:8080"; 
+    const backendBaseUrl = "http://localhost:8080";
 
     const addProductButtons = document.querySelectorAll(".add-new-product-btn");
     addProductButtons.forEach(button => {
         button.addEventListener("click", function () {
             const category = button.getAttribute("data-category");
-            showAddProductForm(category); 
+            showAddProductForm(category);
         });
     });
 
@@ -17,12 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error(`Category section not found: ${category}`);
             return;
         }
-    
+
         const existingForm = categorySection.querySelector("#add-product-form");
         if (existingForm) {
-            existingForm.remove(); 
+            existingForm.remove();
         }
-    
+
         const formContainer = document.createElement("div");
         formContainer.innerHTML = `
             <form id="add-product-form" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc;">
@@ -35,42 +35,42 @@ document.addEventListener("DOMContentLoaded", function () {
                 <button type="button" id="cancel-form-btn">Cancel</button>
             </form>
         `;
-    
+
         categorySection.appendChild(formContainer);
 
         const form = document.getElementById("add-product-form");
-    
+
         form.addEventListener("submit", async function (e) {
             e.preventDefault();
             const photoLink = document.getElementById("photo-link").value;
             const productName = document.getElementById("product-name").value;
             const productPrice = document.getElementById("product-price").value;
             const productQuantity = document.getElementById("product-quantity").value;
-    
+
             if (photoLink && productName && productPrice && productQuantity) {
                 await addNewProduct(category, photoLink, productName, productPrice, productQuantity);
-                formContainer.remove(); 
+                formContainer.remove();
             } else {
                 alert("Please fill in all fields!");
             }
         });
-      
+
         document.getElementById("cancel-form-btn").addEventListener("click", () => {
-            formContainer.remove(); 
+            formContainer.remove();
         });
     }
-    
+
     async function addNewProduct(category, photoLink, productName, productPrice, productQuantity) {
         const productData = {
             photoLink: photoLink,
             productName: productName,
             productPrice: parseFloat(productPrice),
             quantity: parseInt(productQuantity, 10),
-            category: category, 
+            category: category,
         };
-    
-        console.log('Sending product data:', productData); 
-    
+
+        console.log('Sending product data:', productData);
+
         try {
             const response = await fetchData("/api/product/add", 'POST', productData);
             console.log('Response from server:', response);
@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('Failed to add product. Please try again.');
         }
     }
+
     async function loadProducts(category) {
         try {
             const products = await fetchData(`/api/product/getAll?category=${category}`, 'GET');
@@ -88,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (categorySection) {
                 const productsContainer = categorySection.querySelector(".products");
                 productsContainer.innerHTML = ''; 
-    
+
                 products.forEach(product => {
                     const productElement = document.createElement('div');
                     productElement.classList.add('product');
@@ -96,21 +97,32 @@ document.addEventListener("DOMContentLoaded", function () {
                         <img src="${product.photoLink}" alt="${product.productName}" width="100">
                         <h4>${product.productName}</h4>
                         <p>Rs: ${product.productPrice}</p>
-                        <p>Quantity: ${product.quantity}</p>
+                        <p class="available-quantity">Available Quantity: ${product.quantity}</p>
                         <button class="order-btn" data-name="${product.productName}" data-price="${product.productPrice}" data-quantity="${product.quantity}">Order</button>
                         <button class="delete-btn" data-id="${product.id}">Delete</button>
                     `;
                     productsContainer.appendChild(productElement);
-    
+
                     const deleteButton = productElement.querySelector('.delete-btn');
                     deleteButton.addEventListener('click', () => deleteProduct(product.id, category));
-    
+
                     const orderButton = productElement.querySelector('.order-btn');
                     orderButton.addEventListener('click', () => {
                         const productName = orderButton.getAttribute('data-name');
                         const productPrice = parseFloat(orderButton.getAttribute('data-price'));
-                        const productQuantity = parseInt(orderButton.getAttribute('data-quantity'), 10);
-                        addToCart(productName, productPrice, productQuantity); 
+                        const availableQuantity = parseInt(orderButton.getAttribute('data-quantity'), 10);
+
+                        const quantity = prompt(`Enter the quantity for ${productName} (Available: ${availableQuantity}):`);
+                        if (quantity !== null && !isNaN(quantity) && quantity > 0) {
+                            const orderQuantity = parseInt(quantity, 10);
+                            if (orderQuantity <= availableQuantity) {
+                                addToCart(productName, productPrice, orderQuantity); 
+                            } else {
+                                alert(`You cannot order more than the available quantity (${availableQuantity}).`);
+                            }
+                        } else {
+                            alert("Please enter a valid quantity.");
+                        }
                     });
                 });
             }
@@ -118,49 +130,16 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Error loading products:', error);
         }
     }
-    
+
     async function deleteProduct(productId, category) {
         try {
             const response = await fetchData(`/api/product/delete/${productId}`, 'DELETE');
-            console.log('Product deleted successfully:', response); 
+            console.log('Product deleted successfully:', response);
             alert('Product deleted successfully!');
-            loadProducts(category); 
+            loadProducts(category);
         } catch (error) {
             console.error('Error deleting product:', error);
             alert('Failed to delete product. Please try again.');
-        }
-    }
-
-    async function fetchData(endpoint, method, data = null) {
-        const backendBaseUrl = "http://localhost:8080";
-        const url = `${backendBaseUrl}${endpoint}`; 
-    
-        const options = {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-    
-        if (data) {
-            options.body = JSON.stringify(data);
-        }
-    
-        try {
-            const response = await fetch(url, options);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-    
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                return response.json();
-            } else {
-                return response.text(); 
-            }
-        } catch (error) {
-            console.error('Fetch error:', error);
-            throw error;
         }
     }
 

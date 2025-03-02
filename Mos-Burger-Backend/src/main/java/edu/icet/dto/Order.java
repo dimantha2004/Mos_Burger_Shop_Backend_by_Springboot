@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,5 +16,6 @@ public class Order {
     private Integer id;
     private Date orderDate;
     private Double totalPrice;
-    private Integer customerId;
+    private Integer phonenumber;
+    private List<OrderItem> items; // Add this field
 }
