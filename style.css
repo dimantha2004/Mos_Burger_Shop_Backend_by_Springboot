@@ -27,70 +27,153 @@ video {
 }
 
 /* Login and Signin Containers */
-.login-container, .signin-container {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+.login-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    width: 400px;
+    max-width: 90%;
     text-align: center;
-    width: 100%;
-    max-width: 400px;
-    backdrop-filter: blur(5px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeInUp 0.5s ease-out;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.login-container:hover, .signin-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    pointer-events: none;
+    z-index: -1;
 }
 
-.login-container h1, .signin-container h1 {
+.login-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.login-container h1 {
     font-size: 2.5rem;
-    color: #c52152;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
+    background: linear-gradient(to right, #e63946, #a90b67);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 15px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    animation: fadeInDown 0.7s ease-out;
 }
 
-.login-container h2, .signin-container h2 {
-    font-size: 1.2rem;
-    color: #ae10b4;
+.login-container h2 {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 25px;
+    font-weight: 400;
+    animation: fadeInUp 0.7s ease-out;
+}
+
+.login-container .input-group {
     margin-bottom: 20px;
 }
 
-.login-container input, .signin-container input {
+.login-container input {
     width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-.login-container input:focus, .signin-container input:focus {
-    border-color: #e63946;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
     outline: none;
-    box-shadow: 0px 0px 5px rgba(230, 57, 70, 0.4);
+    transition: all 0.3s ease;
 }
 
-.login-container button, .signin-container button {
-    background: linear-gradient(to right, #e63946, #ff4e50);
+.login-container input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.login-container input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.login-container .btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to right, #e63946, #a90b67);
     color: #fff;
     border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
 }
 
-.login-container button:hover, .signin-container button:hover {
-    background: linear-gradient(to right, #d62828, #e63946);
-    transform: scale(1.05);
+.login-container .btn:hover {
+    background: linear-gradient(to right, #d62828, #8a0652);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* App Content */
+.login-container .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.login-container .toggle-text {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 15px;
+}
+
+.login-container .toggle-text a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.login-container .toggle-text a:hover {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes fadeInDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 #app-content {
     display: none;
     width: 100%;
@@ -131,87 +214,244 @@ header nav a:hover {
     text-shadow: 0px 0px 10px rgba(255, 204, 0, 0.8);
 }
 
-/* Category and Product Styles */
-.category {
-    text-align: center;
-    margin: 30px 0;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeInUp 0.5s ease-out;
-}
-
-.category:hover {
-    transform: translateY(-10px);
-    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
-}
-
-.category h4 {
-    font-size: 2rem;
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    margin-bottom: 15px;
-}
-
 .products {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
 }
 
 .product {
-    background-color: #000;
-    border-radius: 50px;
-    overflow: hidden;
-    padding: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: calc(25% - 20px);
+    min-width: 200px;
     text-align: center;
-    width: 20%;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .product:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 .product img {
     width: 100%;
-    height: auto;
+    height: 150px;
+    object-fit: cover;
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .product h4 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: #fff;
-}
-
-.product p {
-    color: #fff;
-    font-size: 1rem;
     margin-bottom: 10px;
 }
 
-.order-btn {
-    background: linear-gradient(to right, #e63946, #ff6b6b);
-    color: #fff;
-    border: none;
+.product p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 10px;
+}
+
+.product .available-quantity {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 15px;
+}
+
+.product button {
     padding: 8px 15px;
+    margin: 5px;
+    border: none;
     border-radius: 8px;
     font-size: 0.9rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.order-btn {
+    background: linear-gradient(to right, #e63946, #a90b67);
+    color: #fff;
 }
 
 .order-btn:hover {
-    background: linear-gradient(to right, #d62828, #e63946);
-    transform: scale(1.05);
+    background: linear-gradient(to right, #d62828, #8a0652);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Cart Section */
+.delete-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.delete-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.product button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.category {
+    background: rgba(204, 194, 194, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.category h4 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+}
+
+.category h4::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(to right, #e63946, #a90b67);
+    border-radius: 2px;
+}
+
+.add-new-product-btn {
+    background: linear-gradient(to right, #e63946, #a90b67);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.add-new-product-btn:hover {
+    background: linear-gradient(to right, #d62828, #8a0652);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.add-new-product-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#add-product-form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+#add-product-form h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+#add-product-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#add-product-form input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+#add-product-form input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#add-product-form button {
+    padding: 12px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#submit-product-btn {
+    background: linear-gradient(to right, #e63946, #a90b67);
+    color: #fff;
+}
+
+#submit-product-btn:hover {
+    background: linear-gradient(to right, #d62828, #8a0652);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#cancel-form-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#cancel-form-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#add-product-form button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
 .cart {
     text-align: center;
     margin: 30px 0;
@@ -246,7 +486,6 @@ header nav a:hover {
     color: #333;
     margin-bottom: 20px;
 }
-
 #clear-cart-btn, #save-order-btn, #checkout-btn, #report-btn {
     margin: 5px;
     padding: 10px 20px;
@@ -281,7 +520,6 @@ header nav a:hover {
     transform: scale(1.05);
 }
 
-/* Modal Styles */
 .modal {
     display: none;
     position: fixed;
@@ -325,7 +563,6 @@ header nav a:hover {
     transform: scale(1.05);
 }
 
-/* Add New Product Button */
 #add-new-product-btn {
     text-align: center;
     color: #111ac4;
@@ -346,7 +583,6 @@ header nav a:hover {
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Animations */
 @keyframes slideInFromLeft {
     from {
         transform: translateX(-100%);
@@ -380,14 +616,12 @@ header nav a:hover {
     }
 }
 
-/* Input Focus Enhancements */
 input:focus, textarea:focus, select:focus {
     border-color: #e63946;
     outline: none;
     box-shadow: 0px 0px 8px rgba(230, 57, 70, 0.4);
 }
 
-/* Button Enhancements */
 button {
     transition: all 0.3s ease;
 }
@@ -396,65 +630,60 @@ button:hover {
     transform: scale(1.05);
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
 }
-/* Product Card Container */
+
 .product {
-    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-    backdrop-filter: blur(10px); /* Glassmorphism effect */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
-    border-radius: 15px; /* Rounded corners */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
     padding: 15px;
     text-align: center;
     width: 100%;
-    max-width: 250px; /* Fixed width for consistency */
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 250px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin: 10px;
 }
 
 .product:hover {
-    transform: translateY(-5px); /* Lift effect on hover */
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Product Image */
 .product img {
     width: 100%;
-    height: 150px; /* Fixed height for uniformity */
-    object-fit: cover; /* Ensures the image covers the area */
-    border-radius: 10px; /* Rounded corners for the image */
-    margin-bottom: 15px; /* Space below the image */
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
     transition: transform 0.3s ease;
 }
 
 .product:hover img {
-    transform: scale(1.05); /* Slight zoom effect on hover */
+    transform: scale(1.05);
 }
 
-/* Product Name */
 .product h4 {
     font-size: 1.2rem;
-    color: #fff; /* White text for contrast */
+    color: #fff;
     margin-bottom: 10px;
     font-weight: 600;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* Product Price */
 .product p {
     font-size: 1rem;
-    color: #fff; /* White text for contrast */
+    color: #fff;
     margin-bottom: 10px;
-    opacity: 0.9; /* Slightly transparent */
+    opacity: 0.9;
 }
 
-/* Available Quantity */
 .product .available-quantity {
     font-size: 0.9rem;
-    color: #ccc; /* Light gray for subtlety */
+    color: #ccc;
     margin-bottom: 15px;
 }
 
-/* Order and Delete Buttons */
 .product .order-btn, .product .delete-btn {
     padding: 8px 15px;
     margin: 5px;
@@ -466,39 +695,197 @@ button:hover {
     transition: all 0.3s ease;
 }
 
-/* Order Button */
 .product .order-btn {
-    background: linear-gradient(to right, #6c63ff, #a90b67); /* Gradient background */
-    color: #fff; /* White text */
+    background: linear-gradient(to right, #6c63ff, #a90b67);
+    color: #fff;
 }
 
 .product .order-btn:hover {
-    background: linear-gradient(to right, #5a52e0, #8a0755); /* Darker gradient on hover */
-    transform: translateY(-2px); /* Lift effect */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+    background: linear-gradient(to right, #5a52e0, #8a0755);
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Delete Button */
 .product .delete-btn {
-    background: #e63946; /* Red background */
-    color: #fff; /* White text */
+    background: #e63946;
+    color: #fff;
 }
 
 .product .delete-btn:hover {
-    background: #d62828; /* Darker red on hover */
-    transform: translateY(-2px); /* Lift effect */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+    background: #d62828;
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .product {
-        width: calc(50% - 20px); /* Two products per row on smaller screens */
+        width: calc(50% - 20px);
     }
 }
 
 @media (max-width: 480px) {
     .product {
-        width: 100%; /* Full width on very small screens */
+        width: 100%;
     }
+}
+
+.signup-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.signup-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.signup-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.signup-container h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(to right, #e63946, #a90b67);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 15px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    animation: fadeInDown 0.7s ease-out;
+}
+
+.signup-container h2 {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 25px;
+    font-weight: 400;
+    animation: fadeInUp 0.7s ease-out;
+}
+
+.signup-container .input-group {
+    margin-bottom: 20px;
+}
+
+.signup-container input {
+    width: 100%;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.signup-container input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.signup-container input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+.signup-container .btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to right, #e63946, #a90b67);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.signup-container .btn:hover {
+    background: linear-gradient(to right, #d62828, #8a0652);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.signup-container .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.signup-container .toggle-text {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 15px;
+}
+
+.signup-container .toggle-text a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.signup-container .toggle-text a:hover {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes fadeInDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.remove-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.remove-btn:hover {
+    background-color: #cc0000;
 }
