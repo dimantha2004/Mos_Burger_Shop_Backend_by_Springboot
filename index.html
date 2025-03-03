@@ -11,28 +11,40 @@
     <div id="main-content">
         <video src="./v1.mp4" autoplay loop muted playsinline></video>
         
-        <div class="login-container">
+        <div class="form-container login-container">
             <h1>MOS BURGER</h1>
             <h2>LOGIN</h2>
             <form id="login-form">
-                <input type="text" id="USERNAME" placeholder="USERNAME" required>
-                <input type="password" id="PASSWORD" placeholder="PASSWORD" required>
-                <button type="submit">SUBMIT</button>
-                <button type="button" id="signin-btn">Signin</button>
+                <div class="input-group">
+                    <input type="text" id="USERNAME" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="PASSWORD" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">LOGIN</button>
+                <p class="toggle-text">Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
             </form>
         </div>
 
         
-        <div class="signin-container" style="display: none;">
+        <div class="form-container signup-container" style="display: none;">
             <h1>MOS BURGER</h1>
-            <h2>SIGNIN</h2>
-            <form id="signin-form">
-                <input type="text" id="new-username" placeholder="USERNAME" required>
-                <input type="email" id="new-email" placeholder="EMAIL" required>
-                <input type="password" id="new-password" placeholder="PASSWORD" required>
-                <button type="submit">Signin</button>
+            <h2>SIGN UP</h2>
+            <form id="signup-form">
+                <div class="input-group">
+                    <input type="text" id="new-username" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="new-email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="new-password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">SIGN UP</button>
+                <p class="toggle-text">Already have an account? <a href="#" id="show-login">Login</a></p>
             </form>
         </div>
+    </div>
 
         
         <div id="app-content" style="display: none;">

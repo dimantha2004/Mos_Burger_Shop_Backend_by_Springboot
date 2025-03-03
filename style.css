@@ -37,6 +37,7 @@ video {
     max-width: 400px;
     backdrop-filter: blur(5px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.5s ease-out;
 }
 
 .login-container:hover, .signin-container:hover {
@@ -99,17 +100,17 @@ video {
 
 header {
     background: linear-gradient(to right, #a90b67, #e63946);
-    color: #000000;
-    padding: 15px;
+    color: #fff;
+    padding: 20px;
     text-align: center;
-    border-radius: 8px;
+    border-radius: 15px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 0.5s ease-out;
 }
 
 header h1 {
     font-size: 3rem;
     font-weight: bold;
-    color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 3px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -125,8 +126,9 @@ header nav a {
 }
 
 header nav a:hover {
-    color: #a11c82;
+    color: #ffcc00;
     transform: scale(1.1);
+    text-shadow: 0px 0px 10px rgba(255, 204, 0, 0.8);
 }
 
 /* Category and Product Styles */
@@ -136,11 +138,13 @@ header nav a:hover {
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.5s ease-out;
 }
 
 .category:hover {
     transform: translateY(-10px);
+    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
 }
 
 .category h4 {
@@ -158,7 +162,7 @@ header nav a:hover {
 }
 
 .product {
-    background-color: #000000;
+    background-color: #000;
     border-radius: 50px;
     overflow: hidden;
     padding: 5px;
@@ -182,11 +186,11 @@ header nav a:hover {
 
 .product h4 {
     font-size: 1.3rem;
-    color: #ffffff;
+    color: #fff;
 }
 
 .product p {
-    color: #ffffff;
+    color: #fff;
     font-size: 1rem;
     margin-bottom: 10px;
 }
@@ -199,11 +203,12 @@ header nav a:hover {
     border-radius: 8px;
     font-size: 0.9rem;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .order-btn:hover {
     background: linear-gradient(to right, #d62828, #e63946);
+    transform: scale(1.05);
 }
 
 /* Cart Section */
@@ -213,12 +218,15 @@ header nav a:hover {
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
-    background-color: #fff;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 0.5s ease-out;
 }
 
 .cart h3 {
     font-size: 2rem;
     color: #e63946;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     margin-bottom: 15px;
 }
 
@@ -293,6 +301,10 @@ header nav a:hover {
     border: 1px solid #888;
     width: 30%;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 0.3s ease-out;
 }
 
 .modal input {
@@ -304,6 +316,13 @@ header nav a:hover {
 .modal button {
     padding: 10px 20px;
     margin: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.modal button:hover {
+    background: linear-gradient(to right, #e63946, #ff4e50);
+    color: #fff;
+    transform: scale(1.05);
 }
 
 /* Add New Product Button */
@@ -322,6 +341,164 @@ header nav a:hover {
 }
 
 #add-new-product-btn:hover {
-    background-color: #0056b3;
+    background: linear-gradient(to right, #0056b3, #0099cc);
     transform: scale(1.05);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations */
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Input Focus Enhancements */
+input:focus, textarea:focus, select:focus {
+    border-color: #e63946;
+    outline: none;
+    box-shadow: 0px 0px 8px rgba(230, 57, 70, 0.4);
+}
+
+/* Button Enhancements */
+button {
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+/* Product Card Container */
+.product {
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
+    border-radius: 15px; /* Rounded corners */
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    max-width: 250px; /* Fixed width for consistency */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 10px;
+}
+
+.product:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Product Image */
+.product img {
+    width: 100%;
+    height: 150px; /* Fixed height for uniformity */
+    object-fit: cover; /* Ensures the image covers the area */
+    border-radius: 10px; /* Rounded corners for the image */
+    margin-bottom: 15px; /* Space below the image */
+    transition: transform 0.3s ease;
+}
+
+.product:hover img {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Product Name */
+.product h4 {
+    font-size: 1.2rem;
+    color: #fff; /* White text for contrast */
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+}
+
+/* Product Price */
+.product p {
+    font-size: 1rem;
+    color: #fff; /* White text for contrast */
+    margin-bottom: 10px;
+    opacity: 0.9; /* Slightly transparent */
+}
+
+/* Available Quantity */
+.product .available-quantity {
+    font-size: 0.9rem;
+    color: #ccc; /* Light gray for subtlety */
+    margin-bottom: 15px;
+}
+
+/* Order and Delete Buttons */
+.product .order-btn, .product .delete-btn {
+    padding: 8px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Order Button */
+.product .order-btn {
+    background: linear-gradient(to right, #6c63ff, #a90b67); /* Gradient background */
+    color: #fff; /* White text */
+}
+
+.product .order-btn:hover {
+    background: linear-gradient(to right, #5a52e0, #8a0755); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Lift effect */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+
+/* Delete Button */
+.product .delete-btn {
+    background: #e63946; /* Red background */
+    color: #fff; /* White text */
+}
+
+.product .delete-btn:hover {
+    background: #d62828; /* Darker red on hover */
+    transform: translateY(-2px); /* Lift effect */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product {
+        width: calc(50% - 20px); /* Two products per row on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .product {
+        width: 100%; /* Full width on very small screens */
+    }
 }
