@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping("/api/product")
 @RequiredArgsConstructor
 public class ProductManagementController {
-
     private final ProductService productService;
 
     @PostMapping("/add")
@@ -29,23 +28,56 @@ public class ProductManagementController {
     @GetMapping("/getAll")
     public List<ProductDTO> getAllProducts(@RequestParam(required = false) String category) {
         if (category != null) {
-            return productService.getProductsByCategory(category); // Filter by category
+            return productService.getProductsByCategory(category);
         }
-        return productService.getAllProducts(); // Return all products if no category is provided
+        return productService.getAllProducts();
+    }
+
+    @GetMapping("/getByName")
+    public ResponseEntity<?> getProductByName(@RequestParam String name) {
+        try {
+            ProductDTO product = productService.getProductByName(name);
+            if (product != null) {
+                return ResponseEntity.ok(product);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
+        }
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
+        try {
+            productService.deleteProduct(id);
+            return ResponseEntity.ok("{\"message\": \"Product deleted successfully\"}");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"Error deleting product\"}");
+        }
     }
 
     @PutMapping("/update")
-    public void updateProduct(@RequestBody ProductDTO productDTO) {
-        productService.updateProduct(productDTO);
+    public ResponseEntity<String> updateProduct(@RequestBody ProductDTO productDTO) {
+        try {
+            productService.updateProduct(productDTO);
+            return ResponseEntity.ok("{\"message\": \"Product updated successfully\"}");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"Error updating product\"}");
+        }
     }
 
     @GetMapping("/get/{id}")
-    public ProductDTO getProductById(@PathVariable Long id) {
-        return productService.getProductById(id);
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
+        try {
+            ProductDTO product = productService.getProductById(id);
+            if (product != null) {
+                return ResponseEntity.ok(product);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

@@ -9,6 +9,6 @@ public interface ProductService {
     void deleteProduct(Long id);
     void updateProduct(ProductDTO productDTO);
     ProductDTO getProductById(Long id);
-
     List<ProductDTO> getProductsByCategory(String category);
+    ProductDTO getProductByName(String name); // Return ProductDTO instead of Product
 }

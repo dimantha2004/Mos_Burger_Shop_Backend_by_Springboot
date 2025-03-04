@@ -22,10 +22,11 @@ public class Config {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins("http://127.0.0.1:5500/") // Replace with your frontend URL
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Add OPTIONS
+                        .allowedOrigins("http://127.0.0.1:5500") // Ensure no trailing slash
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(true);
+                        .allowCredentials(true)
+                        .maxAge(3600); // Cache preflight response for 1 hour
             }
         };
     }

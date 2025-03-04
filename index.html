@@ -59,7 +59,7 @@
                     <a href="#chicken">Chicken</a>
                     <a href="#beverages">Beverages</a>
                     <a href="#cart">Cart</a>
-                    <a href="#add-new-product-btn">Add Product</a>
+                    <button id="product-management-btn">Product Management</button>
                 </nav>
             </header>
             <main>
@@ -108,10 +108,38 @@
             </main>
         </div>
     </div>
+
+    <div id="product-management" style="display: none;">
+        <h1>Product Management</h1>
+        <button id="back-to-app-btn" class="btn btn-secondary">Back to App</button>
+        <form id="product-id-form">
+            <div class="input-group">
+                <input type="text" id="product-id" placeholder="Enter Product ID" required>
+                <button type="submit" class="btn">Search Product</button>
+            </div>
+        </form>
+    
+        <form id="update-product-form" style="display: none;">
+            <div class="input-group">
+                <input type="text" id="update-photo-link" placeholder="Photo Link" required></div>
+            <div class="input-group">
+                <input type="text" id="update-product-name" placeholder="Product Name" required></div>
+            <div class="input-group">
+                <input type="number" id="update-product-price" placeholder="Price" required></div>
+            <div class="input-group">
+                <input type="number" id="update-product-quantity" placeholder="Quantity" required></div>
+            <div class="input-group">
+                <input type="text" id="update-product-category" placeholder="Category" readonly> </div>
+            <button type="submit" class="btn">Update Product</button>
+            <button type="button" id="delete-product-btn" class="btn btn-danger">Delete Product</button>
+        </form>
+    </div>
+
     <script src="login.js"></script>
     <script src="signin.js"></script>
     <script src="app.js"></script>
     <script src="order.js"></script>
     <script src="report.js"></script>
+    <script src="productmanagement.js"></script>
 </body>
 </html>

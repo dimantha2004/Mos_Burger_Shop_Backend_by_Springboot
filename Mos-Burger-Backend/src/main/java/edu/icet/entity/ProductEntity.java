@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "product")
-
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // Keep this for internal use
+
     private String photoLink;
     private String productName;
     private double productPrice;
     private int quantity;
-    private String category; // Add this field
+    private String category;
 }

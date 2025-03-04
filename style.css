@@ -1,4 +1,3 @@
-/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -888,4 +887,239 @@ button:hover {
 
 .remove-btn:hover {
     background-color: #cc0000;
+}
+
+#update-product-form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    display: none; 
+}
+
+#update-product-form h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+#update-product-form .input-group {
+    margin-bottom: 15px;
+}
+
+#update-product-form input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#update-product-form input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+#update-product-form input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#update-product-form button {
+    padding: 12px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#update-product-form button[type="submit"] {
+    background: linear-gradient(to right, #e63946, #a90b67);
+    color: #fff;
+}
+
+#update-product-form button[type="submit"]:hover {
+    background: linear-gradient(to right, #d62828, #8a0652);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#delete-product-btn {
+    background: #e63946;
+    color: #fff;
+}
+
+#delete-product-btn:hover {
+    background: #d62828;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#update-product-form button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#search-product-btn {
+    background: linear-gradient(to right, #4CAF50, #45a049); 
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+#search-product-btn:hover {
+    background: linear-gradient(to right, #45a049, #4CAF50); 
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#search-product-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#product-management {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+#product-management h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(to right, #e63946, #a90b67);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 20px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    animation: fadeInDown 0.7s ease-out;
+}
+
+#product-management .btn-secondary {
+    background: linear-gradient(to right, #6c757d, #495057);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+#product-management .btn-secondary:hover {
+    background: linear-gradient(to right, #5a6268, #343a40);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#product-management .btn-secondary:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#product-id-form {
+    margin-top: 20px;
+}
+
+#product-id-form .input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#product-id-form input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#product-id-form input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+#product-id-form input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#product-id-form .btn {
+    background: linear-gradient(to right, #4CAF50, #45a049); 
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#product-id-form .btn:hover {
+    background: linear-gradient(to right, #45a049, #4CAF50); 
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#product-id-form .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+#product-management-btn {
+    font-weight: bold;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 1rem;
+    color: #ffffff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#product-management-btn:hover {
+    color: #d5bd1f;
+    text-decoration: none;
+}
+
+#product-management-btn:active {
+    color: #dfcb16;
 }

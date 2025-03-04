@@ -1,3 +1,35 @@
+async function fetchData(endpoint, method, data = null) {
+    const backendBaseUrl = "http://localhost:8080"; 
+    const url = `${backendBaseUrl}${endpoint}`;
+
+    const options = {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+    if (data) {
+        options.body = JSON.stringify(data);
+    }
+
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+            return response.json();
+        } else {
+            return response.text();
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+        throw error;
+    }
+}
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM fully loaded and parsed");
 
@@ -85,33 +117,30 @@ document.addEventListener("DOMContentLoaded", function () {
     async function loadProducts(category) {
         try {
             const products = await fetchData(`/api/product/getAll?category=${category}`, 'GET');
+            console.log('Backend Response:', products); 
             const categorySection = document.getElementById(category);
             if (categorySection) {
                 const productsContainer = categorySection.querySelector(".products");
                 productsContainer.innerHTML = ''; 
-
+    
                 products.forEach(product => {
                     const productElement = document.createElement('div');
                     productElement.classList.add('product');
                     productElement.innerHTML = `
                         <img src="${product.photoLink}" alt="${product.productName}" width="100">
-                        <h4>${product.productName}</h4>
+                        <h4>ID: ${product.id} - ${product.productName}</h4>
                         <p>Rs: ${product.productPrice}</p>
                         <p class="available-quantity">Available Quantity: ${product.quantity}</p>
                         <button class="order-btn" data-name="${product.productName}" data-price="${product.productPrice}" data-quantity="${product.quantity}">Order</button>
-                        <button class="delete-btn" data-id="${product.id}">Delete</button>
                     `;
                     productsContainer.appendChild(productElement);
-
-                    const deleteButton = productElement.querySelector('.delete-btn');
-                    deleteButton.addEventListener('click', () => deleteProduct(product.id, category));
-
+    
                     const orderButton = productElement.querySelector('.order-btn');
                     orderButton.addEventListener('click', () => {
                         const productName = orderButton.getAttribute('data-name');
                         const productPrice = parseFloat(orderButton.getAttribute('data-price'));
                         const availableQuantity = parseInt(orderButton.getAttribute('data-quantity'), 10);
-
+    
                         const quantity = prompt(`Enter the quantity for ${productName} (Available: ${availableQuantity}):`);
                         if (quantity !== null && !isNaN(quantity) && quantity > 0) {
                             const orderQuantity = parseInt(quantity, 10);
@@ -130,7 +159,6 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Error loading products:', error);
         }
     }
-
     async function deleteProduct(productId, category) {
         try {
             const response = await fetchData(`/api/product/delete/${productId}`, 'DELETE');

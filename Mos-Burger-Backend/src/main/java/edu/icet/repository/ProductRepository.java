@@ -1,5 +1,6 @@
 package edu.icet.repository;
 
+import edu.icet.entity.OrderItemEntity;
 import edu.icet.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,4 +19,4 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     void updateProductQuantity(@Param("productName") String productName, @Param("quantity") int quantity);
 
     List<ProductEntity> findByCategory(String category);
-}
+    ProductEntity findByProductName(String productName);}
