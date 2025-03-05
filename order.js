@@ -30,9 +30,9 @@ async function fetchData(endpoint, method, data = null) {
         throw error;
     }
 }
+
 document.addEventListener("DOMContentLoaded", function () {
-    
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cart = [];
 
     window.addToCart = function (productName, productPrice, productQuantity) {
         const existingItem = cart.find(item => item.name === productName);
@@ -42,17 +42,15 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             cart.push({ name: productName, price: productPrice * productQuantity, quantity: productQuantity }); 
         }
-        localStorage.setItem("cart", JSON.stringify(cart)); 
-        updateCart();
+        updateCart(); 
         alert(`${productName} (Quantity: ${productQuantity}) has been added to the cart!`);
     };
-    
-    
+
     async function loadProducts(category) {
         try {
             const products = await fetchData(`/api/product/getAll?category=${category}`, 'GET');
             console.log('Backend Response:', products);
-    
+
             const categorySection = document.getElementById(category);
             if (categorySection) {
                 const productsContainer = categorySection.querySelector(".products");
@@ -69,13 +67,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         <button class="order-btn" data-name="${product.productName}" data-price="${product.productPrice}" data-quantity="${product.quantity}">Order</button>
                     `;
                     productsContainer.appendChild(productElement);
-    
+
                     const orderButton = productElement.querySelector('.order-btn');
                     orderButton.addEventListener('click', () => {
                         const productName = orderButton.getAttribute('data-name');
                         const productPrice = parseFloat(orderButton.getAttribute('data-price'));
                         const availableQuantity = parseInt(orderButton.getAttribute('data-quantity'), 10);
-    
+
                         const quantity = prompt(`Enter the quantity for ${productName} (Available: ${availableQuantity}):`);
                         if (quantity !== null && !isNaN(quantity) && quantity > 0) {
                             const orderQuantity = parseInt(quantity, 10);
@@ -94,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Error loading products:', error);
         }
     }
+
     function updateCart() {
         const cartItemsList = document.getElementById("cart-items");
         const totalElement = document.getElementById("total");
@@ -118,13 +117,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function removeFromCart(index) {
         cart.splice(index, 1); 
-        localStorage.setItem("cart", JSON.stringify(cart)); 
-        updateCart(); 
+        updateCart();
     }
 
     document.getElementById("clear-cart-btn")?.addEventListener("click", () => {
-        cart = [];
-        localStorage.removeItem("cart"); 
+        cart = []; 
         updateCart(); 
     });
 
@@ -148,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const orderData = {
                     phonenumber: phoneNumber,
                     totalPrice: totalAmount,
-                    orderDate: new Date().toISOString(), 
+                    orderDate: new Date().toISOString(),
                     items: cart.map(item => ({
                         productName: item.name,
                         quantity: item.quantity,
@@ -159,13 +156,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 const response = await fetchData("/api/Order/add", 'POST', orderData);
                 console.log('Order saved successfully:', response);
 
-                await updateProductQuantities(cart);
+                for (const item of cart) {
+                    await updateProductQuantities(item.name, item.quantity);
+                }
 
-                cart = [];
-                localStorage.removeItem("cart");
+                generateReceipt(phoneNumber, cart, totalAmount);
+
+                cart = []; 
                 updateCart();
-
-                alert("Order placed successfully! Thank you for your purchase.");
+                alert("Order placed successfully...! Thank you for your purchase.");
             } catch (error) {
                 console.error('Error during checkout:', error);
                 alert("Failed to place the order. Please try again.");
@@ -180,13 +179,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error('Product not found:', productName);
                 return;
             }
-    
+
             const updatedQuantity = product.quantity - quantity;
             if (updatedQuantity < 0) {
                 console.error('Insufficient quantity for:', productName);
                 return;
             }
-    
+
             await fetchData(`/api/product/update/${product.id}`, 'PUT', { quantity: updatedQuantity });
             console.log('Product quantity updated successfully:', productName);
         } catch (error) {
@@ -194,6 +193,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    updateCart();
+    updateCart(); 
 });
-

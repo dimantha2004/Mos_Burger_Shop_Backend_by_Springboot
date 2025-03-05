@@ -59,10 +59,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO getProductByName(String name) {
+        System.out.println("Searching for product with name: " + name); // Debugging
         ProductEntity productEntity = productRepository.findByProductName(name);
         if (productEntity != null) {
+            System.out.println("Product found: " + productEntity); // Debugging
             return modelMapper.map(productEntity, ProductDTO.class);
         }
+        System.out.println("Product not found"); // Debugging
         return null;
     }
 }

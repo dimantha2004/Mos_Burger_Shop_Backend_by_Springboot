@@ -19,4 +19,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     void updateProductQuantity(@Param("productName") String productName, @Param("quantity") int quantity);
 
     List<ProductEntity> findByCategory(String category);
-    ProductEntity findByProductName(String productName);}
+
+    ProductEntity findByProductName(String productName);
+}
